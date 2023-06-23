@@ -21,7 +21,7 @@ const url = '/upload/:sha.:format';
 
 uploadImageRouter.put(
 	url,
-	raw({ type: 'image/*', limit: '2Mb' }),
+	raw({ type: 'image/*', limit: '5Mb' }),
 	async (req: Request, res: Response) => {
 		if (!Buffer.isBuffer(req.body)) {
 			res.status(400);
