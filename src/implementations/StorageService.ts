@@ -114,17 +114,20 @@ export class StorageService {
 	}
 
 	async getSourceImage(sha: string) {
-		const rowData = await this.sourceTableClient.getEntity<SourceImageTableRow>(
-			sha,
-			sha
-		);
-		return {
-			buffer: await this.blobServiceClient
-				.getContainerClient(sourceImagesContainer)
-				.getBlobClient(rowData.blobPath)
-				.downloadToBuffer(),
-			data: rowData as SourceImageData,
-		};
+		try {
+			const rowData =
+				await this.sourceTableClient.getEntity<SourceImageTableRow>(sha, sha);
+			return {
+				buffer: await this.blobServiceClient
+					.getContainerClient(sourceImagesContainer)
+					.getBlobClient(rowData.blobPath)
+					.downloadToBuffer(),
+				data: rowData as SourceImageData,
+			};
+		} catch (ex) {
+			// almost certainly "resource does not exist"
+			return null;
+		}
 	}
 
 	async getPreviouslyGeneratedImageUrl(
