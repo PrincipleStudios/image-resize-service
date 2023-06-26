@@ -1,6 +1,6 @@
 import { RequestParams, Responses } from '@/api-types/operations/uploadImage';
 import { ServerResponse } from '@/interfaces/server-response';
-import type { UploadImageHandler } from '@/routes/uploadImage';
+import type { UploadImageHandler } from '@/functions/upload';
 import sharp from 'sharp';
 import { createHash } from 'node:crypto';
 import { inputImageFormatData } from '@/config/image-format-data';

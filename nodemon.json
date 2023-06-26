@@ -1,12 +1,14 @@
 {
     "watch": [
         "src",
-        ".env"
+        ".env",
+        "schemas/api.yaml"
     ],
     "ext": "js,ts,json",
     "ignore": [
         "src/logs/*",
-        "src/**/*.{spec,test}.ts"
+        "src/**/*.{spec,test}.ts",
+        "src/api-types/**/*"
     ],
-    "exec": "ts-node -r tsconfig-paths/register --transpile-only src/index.ts"
+    "exec": "npm start"
 }

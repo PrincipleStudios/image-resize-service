@@ -3,7 +3,7 @@ import {
 	Responses,
 } from '@/api-types/operations/generateImageFormat';
 import { ServerResponse } from '@/interfaces/server-response';
-import type { GenerateImageFormatHandler } from '@/routes/generateImageFormat';
+import type { GenerateImageFormatHandler } from '@/functions/generate';
 import { injectable } from 'tsyringe';
 import { SourceImageData, StorageService } from './StorageService';
 import sharp from 'sharp';

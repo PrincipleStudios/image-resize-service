@@ -39,13 +39,13 @@ $secretKey = 'secret-key'
 $hash = $(Get-FileHash $file -Algorithm SHA1).Hash.ToLower()
 
 # Upload the given file
-Invoke-RestMethod -Uri "http://localhost:5000/upload/$($hash).jpg" -Method Put -InFile $file -ContentType image/jpg -Headers @{ "X-API-Key" = $secretKey }
+Invoke-RestMethod -Uri "http://localhost:7071/api/upload?sha=$hash&format=jpg" -Method Put -InFile $file -ContentType image/jpg -Headers @{ "X-API-Key" = $secretKey }
 
 # Resize it to 400x400 and get the actual URL
-Invoke-RestMethod -Uri "http://localhost:5000/generate/local/400/400/$hash.webp" -Method Get -Headers @{ "X-API-Key" = $secretKey }
+Invoke-RestMethod -Uri "http://localhost:7071/api/generate?groupId=local&width=400&height=400&sha=$hash&format=webp" -Method Get -Headers @{ "X-API-Key" = $secretKey }
 
 # Remove resizes associated with "local"
-Invoke-RestMethod -Uri http://localhost:5000/purge/local -Method Post -Headers @{ "X-API-Key" = $secretKey }
+Invoke-RestMethod -Uri http://localhost:7071/api/purge?groupId=local -Method Post -Headers @{ "X-API-Key" = $secretKey }
 ```
 
 ## Build
@@ -54,11 +54,7 @@ Set the `.env` file as defined above in the Development section and run either o
 
 ```sh
 npm install
-npm run build
 npm start
 ```
 
-```sh
-docker build . -t image-conversion-service
-docker run --rm -ti -p 5000:80 --env-file .env image-conversion-service
-```
+TODO: finish instructions

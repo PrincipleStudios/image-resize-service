@@ -1,6 +1,6 @@
 import { RequestParams, Responses } from '@/api-types/operations/purgeGroup';
 import { ServerResponse } from '@/interfaces/server-response';
-import type { PurgeGroupHandler } from '@/routes/purgeGroup';
+import type { PurgeGroupHandler } from '@/functions/purge';
 import { injectable } from 'tsyringe';
 import { StorageService } from './StorageService';
 
