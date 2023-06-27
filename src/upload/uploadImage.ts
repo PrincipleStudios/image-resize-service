@@ -1,10 +1,10 @@
 import { RequestParams, Responses } from '@/api-types/operations/uploadImage';
-import { ServerResponse } from '@/interfaces/server-response';
-import type { UploadImageHandler } from '@/functions/upload';
+import { ServerResponse } from '@/shared/server-response';
+import type { UploadImageHandler } from '@/upload/UploadImageHandler';
 import sharp from 'sharp';
 import { createHash } from 'node:crypto';
 import { inputImageFormatData } from '@/config/image-format-data';
-import { SourceImageInputData, StorageService } from './StorageService';
+import { SourceImageInputData, StorageService } from '../shared/StorageService';
 import { injectable } from 'tsyringe';
 
 const badRequest: Readonly<ServerResponse<Responses>> = { statusCode: 400 };

@@ -10,3 +10,4 @@ package-lock.json
 deployment/
 schemas/
 src/
+node_modules/@principlestudios/openapi-codegen-typescript/dotnet

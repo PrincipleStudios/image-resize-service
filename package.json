@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "dist/functions/*.js",
+  "main": "dist/*/function.js",
   "scripts": {
     "dev": "nodemon",
     "predev:run": "npm run clean && npm run build",

@@ -5,20 +5,10 @@ import {
 	HttpResponseInit,
 	InvocationContext,
 } from '@azure/functions';
-import { RequestParams, Responses } from '@/api-types/operations/uploadImage';
-import { ServerResponse } from '@/interfaces/server-response';
-import {
-	badRequest,
-	writeResponse,
-} from '@/interfaces/write-function-response';
+import { RequestParams } from '@/api-types/operations/uploadImage';
+import { badRequest, writeResponse } from '@/shared/write-function-response';
 import { inputFormat, type InputFormat } from '@/api-types/models/InputFormat';
-
-export interface UploadImageHandler {
-	handle(
-		params: RequestParams,
-		body: Buffer
-	): Promise<ServerResponse<Responses>>;
-}
+import { UploadImageHandler } from './UploadImageHandler';
 
 export async function upload(
 	request: HttpRequest,

@@ -2,12 +2,12 @@ import {
 	RequestParams,
 	Responses,
 } from '@/api-types/operations/generateImageFormat';
-import { ServerResponse } from '@/interfaces/server-response';
-import type { GenerateImageFormatHandler } from '@/functions/generate';
-import { injectable } from 'tsyringe';
-import { SourceImageData, StorageService } from './StorageService';
+import { ServerResponse } from '@/shared/server-response';
+import type { GenerateImageFormatHandler } from '@/generate/GenerateImageFormatHandler';
+import { SourceImageData, StorageService } from '../shared/StorageService';
 import sharp from 'sharp';
 import { OutputFormat } from '@/api-types/models/OutputFormat';
+import { injectable } from 'tsyringe';
 
 @injectable()
 export class GenerateImageFormat implements GenerateImageFormatHandler {

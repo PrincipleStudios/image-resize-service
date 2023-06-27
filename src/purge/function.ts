@@ -5,16 +5,9 @@ import {
 	HttpResponseInit,
 	InvocationContext,
 } from '@azure/functions';
-import { RequestParams, Responses } from '@/api-types/operations/purgeGroup';
-import { ServerResponse } from '@/interfaces/server-response';
-import {
-	badRequest,
-	writeResponse,
-} from '@/interfaces/write-function-response';
-
-export interface PurgeGroupHandler {
-	handle(params: RequestParams): Promise<ServerResponse<Responses>>;
-}
+import { RequestParams } from '@/api-types/operations/purgeGroup';
+import { badRequest, writeResponse } from '@/shared/write-function-response';
+import { PurgeGroupHandler } from './PurgeGroupHandler';
 
 export async function purge(
 	request: HttpRequest,

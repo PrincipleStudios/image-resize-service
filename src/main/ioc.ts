@@ -1,9 +1,9 @@
 import { container } from 'tsyringe';
 
-import { GenerateImageFormat } from '@/implementations/generateImageFormat';
-import { UploadImage } from '@/implementations/uploadImage';
-import { PurgeGroup } from '@/implementations/purgeGroup';
-import { StorageService } from '@/implementations/StorageService';
+import { GenerateImageFormat } from '@/generate/generateImageFormat';
+import { UploadImage } from '@/upload/uploadImage';
+import { PurgeGroup } from '@/purge/purgeGroup';
+import { StorageService } from '@/shared/StorageService';
 
 container.registerSingleton<GenerateImageFormat>(
 	'generateImageFormat',

@@ -1,4 +1,3 @@
-import { injectable } from 'tsyringe';
 import {
 	TableClient,
 	AzureNamedKeyCredential,
@@ -14,6 +13,7 @@ import {
 	AZURE_STORAGE_ACCOUNT_KEY,
 } from '@/config';
 import { OutputFormat } from '@/api-types/models/OutputFormat';
+import { injectable } from 'tsyringe';
 
 const tableUrl = `https://${AZURE_STORAGE_ACCOUNT_NAME}.table.core.windows.net`;
 const blobUrl = `https://${AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net`;

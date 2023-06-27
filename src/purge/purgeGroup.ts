@@ -1,8 +1,8 @@
 import { RequestParams, Responses } from '@/api-types/operations/purgeGroup';
-import { ServerResponse } from '@/interfaces/server-response';
-import type { PurgeGroupHandler } from '@/functions/purge';
+import { ServerResponse } from '@/shared/server-response';
+import type { PurgeGroupHandler } from '@/purge/PurgeGroupHandler';
+import { StorageService } from '../shared/StorageService';
 import { injectable } from 'tsyringe';
-import { StorageService } from './StorageService';
 
 @injectable()
 export class PurgeGroup implements PurgeGroupHandler {

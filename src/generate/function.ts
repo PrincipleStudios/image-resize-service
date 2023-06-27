@@ -5,23 +5,13 @@ import {
 	HttpResponseInit,
 	InvocationContext,
 } from '@azure/functions';
-import {
-	RequestParams,
-	Responses,
-} from '@/api-types/operations/generateImageFormat';
-import { ServerResponse } from '@/interfaces/server-response';
-import {
-	badRequest,
-	writeResponse,
-} from '@/interfaces/write-function-response';
+import { RequestParams } from '@/api-types/operations/generateImageFormat';
+import { badRequest, writeResponse } from '@/shared/write-function-response';
 import {
 	outputFormat,
 	type OutputFormat,
 } from '@/api-types/models/OutputFormat';
-
-export interface GenerateImageFormatHandler {
-	handle(params: RequestParams): Promise<ServerResponse<Responses>>;
-}
+import type { GenerateImageFormatHandler } from './GenerateImageFormatHandler';
 
 export async function generate(
 	request: HttpRequest,
