@@ -24,8 +24,6 @@ AZURE_STORAGE_ACCOUNT_NAME=
 AZURE_STORAGE_ACCOUNT_KEY=
 ```
 
-Optionally, also include a `SECRET_KEY`. Then:
-
 ```sh
 npm install
 npm run dev

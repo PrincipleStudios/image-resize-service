@@ -1,2 +1,0 @@
-import 'reflect-metadata';
-import '@/main/ioc';

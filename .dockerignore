@@ -1,9 +1,0 @@
-.git
-Dockerfile
-.dockerignore
-/deployment
-
-node_modules
-/dist
-.env
-/src/api-types

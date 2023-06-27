@@ -10,5 +10,5 @@
         "src/**/*.{spec,test}.ts",
         "src/api-types/**/*"
     ],
-    "exec": "npm start"
+    "exec": "npm run dev:run"
 }
