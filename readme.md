@@ -1,19 +1,36 @@
 # Image Conversion Service
 
-A simple service to upload source images to Azure Blob Storage and provide easy
+A simple Azure Function to upload source images to Azure Blob Storage and provide easy
 resize capabilities. See the [api specification](./api.yaml) for usage details.
 
 ## Setup
 
-Create an Azure Storage Account service with the following initial setup:
+1. Create an Azure Storage Account service with the following initial setup:
 
-- 3 tables:
-  - `GroupImages`
-  - `SourceImages`
-  - `UsedImages`
-- 2 containers:
-  - `sourceimages` - "Public access level" should be set to "Private"
-  - `generatedimages` - "Public access level" should be set to "Blob"
+   - 3 tables:
+     - `GroupImages`
+     - `SourceImages`
+     - `UsedImages`
+   - 2 containers:
+     - `sourceimages` - "Public access level" should be set to "Private"
+     - `generatedimages` - "Public access level" should be set to "Blob"
+
+2. Set up a storage account and function app for the functions.
+
+   ```pwsh
+   $funcStorage = 'storageaccountname'
+   $resourceGroup = 'resourcegroup'
+   $funcAppName = 'funcappname'
+   $region = 'southcentralus'
+
+   az storage account create --name $funcStorage --location $region --resource-group $resourceGroup --sku Standard_LRS --allow-blob-public-access false
+   az functionapp create --resource-group $resourceGroup --consumption-plan-location $region --runtime node --runtime-version 18 --name $funcAppName --storage-account psmarketingfuncs --functions-version 4
+   az functionapp config appsettings set --name $funcAppName --resource-group $resourceGroup --settings AzureWebJobsFeatureFlags=EnableWorkerIndexing
+   ```
+
+3. Make the following adjustments via the portal:
+   - Set the AZURE_STORAGE_ACCOUNT_NAME and AZURE_STORAGE_ACCOUNT_KEY variables in "Settings -> Configuration -> Application Settings"
+   - Set the "Platform" to "64 Bit" in "Settings -> Configuration -> General Settings"
 
 ## Development
 
@@ -23,6 +40,8 @@ Create a `.env` file in the root with the following values:
 AZURE_STORAGE_ACCOUNT_NAME=
 AZURE_STORAGE_ACCOUNT_KEY=
 ```
+
+Then run:
 
 ```sh
 npm install
@@ -55,4 +74,8 @@ npm install
 npm start
 ```
 
-TODO: finish instructions
+## Deploy
+
+The Azure Functions server is configured to run on a Windows x64 server. As such, `sharp`, which is used and requires a native build, must be installed for a Windows x64 machine.
+
+The `./deployment/deploy.ps1` script has only been tested on a Windows x64 machine, but includes the command to install the appropriate architecture.
