@@ -52,7 +52,6 @@ A few sample powershell scripts:
 
 ```pwsh
 $file = '/path/to/file.jpg' # If this is not a jpg, adjust the content type below
-$secretKey = 'secret-key'
 $hash = $(Get-FileHash $file -Algorithm SHA1).Hash.ToLower()
 
 # Upload the given file
@@ -63,6 +62,20 @@ Invoke-RestMethod -Uri "http://localhost:7071/api/generate?groupId=local&width=4
 
 # Remove resizes associated with "local"
 Invoke-RestMethod -Uri http://localhost:7071/api/purge?groupId=local -Method Post -Headers @{ "X-API-Key" = $secretKey }
+
+
+# For remote testing
+$secretKey = 'secret-key' # Azure functions key
+
+# Upload the given file
+Invoke-RestMethod -Uri "https://ps-image-resize-service.azurewebsites.net/api/upload?sha=$hash&format=jpg" -Method Put -InFile $file -ContentType image/jpg -Headers @{ "X-Functions-Key" = $secretKey }
+
+# Resize it to 400x400 and get the actual URL
+Invoke-RestMethod -Uri "https://ps-image-resize-service.azurewebsites.net/api/generate?groupId=local&width=400&height=400&sha=$hash&format=webp" -Method Get -Headers @{ "X-Functions-Key" = $secretKey }
+
+# Remove resizes associated with "local"
+Invoke-RestMethod -Uri https://ps-image-resize-service.azurewebsites.net/api/purge?groupId=local -Method Post -Headers @{ "X-Functions-Key" = $secretKey }
+
 ```
 
 ## Build
