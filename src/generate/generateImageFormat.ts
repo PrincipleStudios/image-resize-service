@@ -31,7 +31,16 @@ export class GenerateImageFormat implements GenerateImageFormatHandler {
 				const formatted = changeFormat[params.format](resized, data);
 
 				const result = await formatted.toBuffer();
-				console.log(`reformatted, was ${data.bytes}, now ${result.length}`);
+				if (data.bytes > result.length * 1000) {
+					// corrupted resulting image - not sure how that happened!
+					console.log(
+						`rejected format change of ${params.sha} to ${params.format} at ${params.width}x${params.height}, was ${data.bytes}, now ${result.length} - seems impossible`
+					);
+					return { statusCode: 500 };
+				}
+				console.log(
+					`reformatted ${params.sha} to ${params.format} at ${params.width}x${params.height}, was ${data.bytes}, now ${result.length}`
+				);
 				url = await this.service.uploadGeneratedImage(params, result);
 			} else {
 				console.log('reusing previously uploaded image');
