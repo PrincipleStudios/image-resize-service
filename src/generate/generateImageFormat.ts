@@ -8,6 +8,7 @@ import { SourceImageData, StorageService } from '../shared/StorageService';
 import sharp from 'sharp';
 import { OutputFormat } from '@/api-types/models/OutputFormat';
 import { injectable } from 'tsyringe';
+import { AZURE_CDN_HOST, AZURE_STORAGE_ACCOUNT_NAME } from '@/config';
 
 @injectable()
 export class GenerateImageFormat implements GenerateImageFormatHandler {
@@ -34,6 +35,12 @@ export class GenerateImageFormat implements GenerateImageFormatHandler {
 				url = await this.service.uploadGeneratedImage(params, result);
 			} else {
 				console.log('reusing previously uploaded image');
+			}
+			if (AZURE_CDN_HOST) {
+				url = url.replace(
+					`${AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net`,
+					AZURE_CDN_HOST
+				);
 			}
 			return { statusCode: 200, data: url, mimeType: 'application/json' };
 		} catch (ex) {
